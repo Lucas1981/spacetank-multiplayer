@@ -1,0 +1,17 @@
+.st-body {
+  background: #222222;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.st-header {
+  color: green;
+  font-family: 'Courrier New', Courier
+}
+
+.st-canvas {
+  height: 563px;
+  width: 900px;
+}
