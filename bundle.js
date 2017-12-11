@@ -162,6 +162,46 @@ class Vector {
 "use strict";
 /* jshint esversion: 6 */
 
+class Thing {
+  constructor(x, y, direction, color) {
+    this.x = x;
+    this.y = y;
+    this.direction = direction;
+    this.color = color;
+    this.status = true;
+    this.timeCreated = new Date();
+    this.direction = direction;
+    this.timer = new Date();
+  }
+
+  cos(val) {
+    return Math.cos(val * Math.PI / 180);
+  }
+
+  sin(val) {
+    return Math.sin(val * Math.PI / 180);
+  }
+
+  destroy() {
+    this.status = false;
+  }
+
+  isAlive() {
+    return this.status;
+  }
+
+}
+/* harmony export (immutable) */ exports["a"] = Thing;
+
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* jshint esversion: 6 */
+
 class Projection {
   constructor(min, max) {
     this.min = min;
@@ -177,7 +217,7 @@ class Projection {
 
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -228,7 +268,7 @@ class Shape {
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -275,61 +315,21 @@ function polygonCollidesWithCircle(polygon, circle) {
 
 
 /***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* jshint esversion: 6 */
-
-class Thing {
-  constructor(x, y, direction, color) {
-    this.x = x;
-    this.y = y;
-    this.direction = direction;
-    this.color = color;
-    this.status = true;
-    this.timeCreated = new Date();
-    this.direction = direction;
-    this.timer = new Date();
-  }
-
-  cos(val) {
-    return Math.cos(val * Math.PI / 180);
-  }
-
-  sin(val) {
-    return Math.sin(val * Math.PI / 180);
-  }
-
-  destroy() {
-    this.status = false;
-  }
-
-  isAlive() {
-    return this.status;
-  }
-
-}
-/* harmony export (immutable) */ exports["a"] = Thing;
-
-
-
-/***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NextAnimationFrame__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LinkedList__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Tank__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Bullet__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_KeyboardInput__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Stars__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Sound__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__CONTROL_CONFIG__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__AnimationFactory__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Canvas__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__attach_event_handlers__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NextAnimationFrame__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LinkedList__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Tank__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Bullet__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__KeyboardInput__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Stars__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Sound__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__CONTROL_CONFIG__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__AnimationFactory__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Canvas__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__attach_event_handlers__ = __webpack_require__(21);
 /* jshint esversion: 6 */
 
 
@@ -362,7 +362,7 @@ const TIME_TO_NEXT_GAME = 500;
   let animationFactory = new __WEBPACK_IMPORTED_MODULE_8__AnimationFactory__["a" /* AnimationFactory */]();
   let things = null;
   let request = new __WEBPACK_IMPORTED_MODULE_0__NextAnimationFrame__["a" /* NextAnimationFrameFactory */]();
-  let keyboardInput = new __WEBPACK_IMPORTED_MODULE_4__lib_KeyboardInput__["a" /* KeyboardInput */]();
+  let keyboardInput = new __WEBPACK_IMPORTED_MODULE_4__KeyboardInput__["a" /* KeyboardInput */]();
   let activeTank = 0;
   let toggle = false;
   let sky = new __WEBPACK_IMPORTED_MODULE_5__Stars__["a" /* Stars */](MAX_WIDTH, MAX_HEIGHT, NUMBER_OF_STARS_IN_THE_SKY);
@@ -547,66 +547,272 @@ if(false) {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Point__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Vector__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Shape__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Projection__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__ = __webpack_require__(4);
 /* jshint esversion: 6 */
 
-
-
-
-
-
-
-class Circle extends __WEBPACK_IMPORTED_MODULE_2__Shape__["a" /* Shape */] {
-  constructor(x, y, radius) {
-     super();
-     this.x = x;
-     this.y = y;
-     this.radius = radius;
+class Animation {
+  constructor(framesPerSecond, image, frameWidth, frameHeight, numberOfFrames, framesPerRow) {
+    this.image = image;
+    this.frame = 0;
+    this.framesPerSecond = framesPerSecond;
+    this.frameWidth = frameWidth;
+    this.frameHeight = frameHeight;
+    this.numberOfFrames = numberOfFrames;
+    this.framesPerRow = framesPerRow;
+    this.start = new Date();
   }
 
-  collidesWith(shape) {
-     var point, length, min=10000, v1, v2,
-         edge, perpendicular, normal,
-         axes = shape.getAxes(), distance;
-
-     if (axes === undefined) {  // circle
-        distance = Math.sqrt(Math.pow(shape.x - this.x, 2) +
-                             Math.pow(shape.y - this.y, 2));
-
-        return distance < Math.abs(this.radius + shape.radius);
-     }
-     else {  // polygon
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__["a" /* polygonCollidesWithCircle */])(shape, this);
-     }
+  reset() {
+    this.start = new Date();
+    return this.start;
   }
 
-  getAxes() {
-     return undefined; // there are an infinite number of axes for circles
-  }
+  draw(x, y, ctx) {
+    let now = new Date();
+    let elapsedTime = now - this.start;
+    let offsetX, offsetY;
 
-  project(axis) {
-     var scalars = [],
-         point = new __WEBPACK_IMPORTED_MODULE_0__Point__["a" /* Point */](this.x, this.y),
-         dotProduct = new __WEBPACK_IMPORTED_MODULE_1__Vector__["a" /* Vector */](point).dotProduct(axis);
+    this.frame = Math.round(this.framesPerSecond * elapsedTime);
 
-     scalars.push(dotProduct);
-     scalars.push(dotProduct + this.radius);
-     scalars.push(dotProduct - this.radius);
+    if(this.frame > this.numberOfFrames) {
+      return false;
+    }
+    else {
+      offsetX = this.frame % this.framesPerRow;
+      offsetY = parseInt(this.frame / this.framesPerRow);
 
-     return new __WEBPACK_IMPORTED_MODULE_3__Projection__["a" /* Projection */](Math.min.apply(Math, scalars),
-                           Math.max.apply(Math, scalars));
+      ctx.drawImage(
+        this.image,
+        offsetX * this.frameWidth,
+        offsetY * this.frameHeight,
+        this.frameWidth,
+        this.frameHeight,
+        x - this.frameWidth / 2,
+        y - this.frameHeight / 2,
+        this.frameWidth,
+        this.frameHeight
+      );
+      return true;
+    }
   }
 }
-/* harmony export (immutable) */ exports["a"] = Circle;
+/* harmony export (immutable) */ exports["a"] = Animation;
 
 
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Animation__ = __webpack_require__(8);
+/* jshint esversion: 6 */
+
+
+
+const FRAMES_PER_SECOND = 32 / 1000;
+const FRAME_WIDTH = 64;
+const FRAME_HEIGHT = 64;
+const NUMBER_OF_FRAMES = 16;
+const FRAMES_PER_ROW = 4;
+
+class AnimationFactory {
+  constructor() {
+    let that = this;
+    this.image = new Image();
+
+    this.image.src = './img/explosion.png';
+    this.loadingPromise = new Promise((resolve, reject) => {
+      that.image.onload = () => {
+        resolve();
+      };
+    });
+  }
+
+  getLoadingPromise(){
+    return this.loadingPromise;
+  }
+
+  getNewExplosionAnimation() {
+    return new __WEBPACK_IMPORTED_MODULE_0__Animation__["a" /* Animation */](
+      FRAMES_PER_SECOND,
+      this.image,
+      FRAME_WIDTH,
+      FRAME_HEIGHT,
+      NUMBER_OF_FRAMES,
+      FRAMES_PER_ROW
+    );
+  }
+}
+/* harmony export (immutable) */ exports["a"] = AnimationFactory;
+
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Thing__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__collision_CollisionMediator__ = __webpack_require__(23);
+/* jshint esversion: 6 */
+
+
+
+
+const MAX_AGE = 500;
+const PIXELS_PER_THOUSAND_MILISECONDS = 500 / 1000;
+const COLOR = 'green';
+const RADIUS = 5;
+const DEBUG = false;
+
+let collisionMediator = new __WEBPACK_IMPORTED_MODULE_1__collision_CollisionMediator__["a" /* CollisionMediator */]();
+
+class Bullet extends __WEBPACK_IMPORTED_MODULE_0__Thing__["a" /* Thing */] {
+  constructor(x, y, direction, parent) {
+    super(x, y, direction, COLOR);
+    this.radius = RADIUS;
+    this.speed = PIXELS_PER_THOUSAND_MILISECONDS;
+    this.timeCreated = new Date();
+    this.parent = parent;
+  }
+
+  draw(ctx) {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.closePath();
+  }
+
+  progress() {
+    let now = new Date();
+    let elapsedTime = now - this.timer;
+    let step = this.speed * elapsedTime;
+    this.x += this.cos(this.direction) * step;
+    this.y += this.sin(this.direction) * step;
+    this.timer = now;
+    if(this.shouldDie()) this.destroy();
+  }
+
+  detectCollision(things) {
+    for(let thing = things.first(); thing != null; thing = thing.next) {
+      if(
+        thing.element.canShoot() &&
+        !this.isParent(thing.element) &&
+        collisionMediator.bulletCollidesWithTank(this, thing.element)
+      ) {
+        return thing;
+      }
+    }
+
+    return null;
+  }
+
+  shouldDie() {
+    let now = new Date();
+    return now - this.timeCreated > MAX_AGE;
+  }
+
+  canShoot() {
+    return false;
+  }
+
+  getX() {
+    return this.x;
+  }
+
+  getY() {
+    return this.y;
+  }
+
+  getRadius() {
+    return this.radius;
+  }
+
+  isParent(thing) {
+    return thing == this.parent;
+  }
+
+  getParent() {
+    return this.parent;
+  }
+
+}
+/* harmony export (immutable) */ exports["a"] = Bullet;
+
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* jshint esversion: 6 */
+
+const CONTROL_CONFIG = [
+  {
+    up: 'up',
+    down: 'down',
+    left: 'left',
+    right: 'right',
+    fire: 'zero'
+  },
+  {
+    up: 'altUp',
+    down: 'altDown',
+    left: 'altLeft',
+    right: 'altRight',
+    fire: 'space'
+  }
+];
+/* harmony export (immutable) */ exports["a"] = CONTROL_CONFIG;
+
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* jshint esversion: 6 */
+
+const BACKGROUND = 'rgb(0, 0, 0)';
+
+class Canvas {
+  constructor(maxWidth, maxHeight, background) {
+    this.canvasPointer = document.getElementById('canvas');
+    this.context = this.canvasPointer.getContext("2d");
+    this.canvasPointer.width = maxWidth;
+    this.canvasPointer.height = maxHeight;
+  }
+
+  getContext() {
+    return this.context;
+  }
+
+  clearCanvas() {
+    this.context.fillStyle = BACKGROUND;
+    this.context.fillRect(0, 0, this.canvasPointer.width, this.canvasPointer.height);
+  }
+
+  drawScore(red, blue) {
+    this.context.font = "bold 32px 'Courier New'";
+    this.context.textAlign = "center";
+
+    this.context.fillStyle = "red";
+    this.context.fillText(red, this.canvasPointer.width / 2 - 100, 50);
+
+    this.context.fillStyle = "blue";
+    this.context.fillText(blue, this.canvasPointer.width / 2 + 100, 50);
+  }
+
+}
+/* harmony export (immutable) */ exports["a"] = Canvas;
+
+
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,393 +954,11 @@ class KeyboardInput {
 
 
 /***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Point__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Projection__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Shape__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Vector__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__ = __webpack_require__(4);
-/* jshint esversion: 6 */
-
-
-
-
-
-
-
-class Polygon extends __WEBPACK_IMPORTED_MODULE_2__Shape__["a" /* Shape */] {
-  constructor() {
-    super();
-    this.points = [];
-  }
-
-  collidesWith(shape) {
-     var axes = shape.getAxes();
-
-     if (axes === undefined) {
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__["a" /* polygonCollidesWithCircle */])(this, shape);
-     }
-     else {
-        axes.concat(this.getAxes());
-        return !this.separationOnAxes(axes, shape);
-     }
-  }
-
-  getAxes() {
-     var v1, v2, edge, perpendicular, normal, axes = [];
-
-     for (var i=0; i < this.points.length-1; i++) {
-        v1 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[i]);
-        v2 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[i+1]);
-        axes.push(v1.edge(v2).normal());
-     }
-
-     v1 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[this.points.length-1]);
-     v2 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[0]);
-     axes.push(v1.edge(v2).normal());
-
-     return axes;
-  }
-
-  project(axis) {
-     var scalars = [];
-
-     this.points.forEach( function (point) {
-        scalars.push(new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](point).dotProduct(axis));
-     });
-
-     return new __WEBPACK_IMPORTED_MODULE_1__Projection__["a" /* Projection */](Math.min.apply(Math, scalars),
-                           Math.max.apply(Math, scalars));
-  }
-
-  addPoint(x, y) {
-     this.points.push(new __WEBPACK_IMPORTED_MODULE_0__Point__["a" /* Point */](x,y));
-  }
-}
-/* harmony export (immutable) */ exports["a"] = Polygon;
-
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* jshint esversion: 6 */
-
-class Animation {
-  constructor(framesPerSecond, image, frameWidth, frameHeight, numberOfFrames, framesPerRow) {
-    this.image = image;
-    this.frame = 0;
-    this.framesPerSecond = framesPerSecond;
-    this.frameWidth = frameWidth;
-    this.frameHeight = frameHeight;
-    this.numberOfFrames = numberOfFrames;
-    this.framesPerRow = framesPerRow;
-    this.start = new Date();
-  }
-
-  reset() {
-    this.start = new Date();
-    return this.start;
-  }
-
-  draw(x, y, ctx) {
-    let now = new Date();
-    let elapsedTime = now - this.start;
-    let offsetX, offsetY;
-
-    this.frame = Math.round(this.framesPerSecond * elapsedTime);
-
-    if(this.frame > this.numberOfFrames) {
-      return false;
-    }
-    else {
-      offsetX = this.frame % this.framesPerRow;
-      offsetY = parseInt(this.frame / this.framesPerRow);
-
-      ctx.drawImage(
-        this.image,
-        offsetX * this.frameWidth,
-        offsetY * this.frameHeight,
-        this.frameWidth,
-        this.frameHeight,
-        x - this.frameWidth / 2,
-        y - this.frameHeight / 2,
-        this.frameWidth,
-        this.frameHeight
-      );
-      return true;
-    }
-  }
-}
-/* harmony export (immutable) */ exports["a"] = Animation;
-
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Animation__ = __webpack_require__(11);
-/* jshint esversion: 6 */
-
-
-
-const FRAMES_PER_SECOND = 32 / 1000;
-const FRAME_WIDTH = 64;
-const FRAME_HEIGHT = 64;
-const NUMBER_OF_FRAMES = 16;
-const FRAMES_PER_ROW = 4;
-
-class AnimationFactory {
-  constructor() {
-    let that = this;
-    this.image = new Image();
-
-    this.image.src = './img/explosion.png';
-    this.loadingPromise = new Promise((resolve, reject) => {
-      that.image.onload = () => {
-        resolve();
-      };
-    });
-  }
-
-  getLoadingPromise(){
-    return this.loadingPromise;
-  }
-
-  getNewExplosionAnimation() {
-    return new __WEBPACK_IMPORTED_MODULE_0__Animation__["a" /* Animation */](
-      FRAMES_PER_SECOND,
-      this.image,
-      FRAME_WIDTH,
-      FRAME_HEIGHT,
-      NUMBER_OF_FRAMES,
-      FRAMES_PER_ROW
-    );
-  }
-}
-/* harmony export (immutable) */ exports["a"] = AnimationFactory;
-
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Thing__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollisionMediator__ = __webpack_require__(16);
-/* jshint esversion: 6 */
-
-
-
-
-const MAX_AGE = 500;
-const PIXELS_PER_THOUSAND_MILISECONDS = 500 / 1000;
-const COLOR = 'green';
-const RADIUS = 5;
-const DEBUG = false;
-
-let collisionMediator = new __WEBPACK_IMPORTED_MODULE_1__CollisionMediator__["a" /* CollisionMediator */]();
-
-class Bullet extends __WEBPACK_IMPORTED_MODULE_0__Thing__["a" /* Thing */] {
-  constructor(x, y, direction, parent) {
-    super(x, y, direction, COLOR);
-    this.radius = RADIUS;
-    this.speed = PIXELS_PER_THOUSAND_MILISECONDS;
-    this.timeCreated = new Date();
-    this.parent = parent;
-  }
-
-  draw(ctx) {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    ctx.closePath();
-  }
-
-  progress() {
-    let now = new Date();
-    let elapsedTime = now - this.timer;
-    let step = this.speed * elapsedTime;
-    this.x += this.cos(this.direction) * step;
-    this.y += this.sin(this.direction) * step;
-    this.timer = now;
-    if(this.shouldDie()) this.destroy();
-  }
-
-  detectCollision(things) {
-    for(let thing = things.first(); thing != null; thing = thing.next) {
-      if(
-        thing.element.canShoot() &&
-        !this.isParent(thing.element) &&
-        collisionMediator.bulletCollidesWithTank(this, thing.element)
-      ) {
-        return thing;
-      }
-    }
-
-    return null;
-  }
-
-  shouldDie() {
-    let now = new Date();
-    return now - this.timeCreated > MAX_AGE;
-  }
-
-  canShoot() {
-    return false;
-  }
-
-  getX() {
-    return this.x;
-  }
-
-  getY() {
-    return this.y;
-  }
-
-  getRadius() {
-    return this.radius;
-  }
-
-  isParent(thing) {
-    return thing == this.parent;
-  }
-
-  getParent() {
-    return this.parent;
-  }
-
-}
-/* harmony export (immutable) */ exports["a"] = Bullet;
-
-
-
-/***/ },
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* jshint esversion: 6 */
-
-const CONTROL_CONFIG = [
-  {
-    up: 'up',
-    down: 'down',
-    left: 'left',
-    right: 'right',
-    fire: 'zero'
-  },
-  {
-    up: 'altUp',
-    down: 'altDown',
-    left: 'altLeft',
-    right: 'altRight',
-    fire: 'space'
-  }
-];
-/* harmony export (immutable) */ exports["a"] = CONTROL_CONFIG;
-
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* jshint esversion: 6 */
-
-const BACKGROUND = 'rgb(0, 0, 0)';
-
-class Canvas {
-  constructor(maxWidth, maxHeight, background) {
-    this.canvasPointer = document.getElementById('canvas');
-    this.context = this.canvasPointer.getContext("2d");
-    this.canvasPointer.width = maxWidth;
-    this.canvasPointer.height = maxHeight;
-  }
-
-  getContext() {
-    return this.context;
-  }
-
-  clearCanvas() {
-    this.context.fillStyle = BACKGROUND;
-    this.context.fillRect(0, 0, this.canvasPointer.width, this.canvasPointer.height);
-  }
-
-  drawScore(red, blue) {
-    this.context.font = "bold 32px 'Courier New'";
-    this.context.textAlign = "center";
-
-    this.context.fillStyle = "red";
-    this.context.fillText(red, this.canvasPointer.width / 2 - 100, 50);
-
-    this.context.fillStyle = "blue";
-    this.context.fillText(blue, this.canvasPointer.width / 2 + 100, 50);
-  }
-
-}
-/* harmony export (immutable) */ exports["a"] = Canvas;
-
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_Circle__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_Polygon__ = __webpack_require__(10);
-/* jshint esversion: 6 */
-
-
-
-
-class CollisionMediator {
-  constructor() {
-
-  }
-
-  bulletCollidesWithTank(bullet, tank) {
-
-    let points = tank.getRotatedAndTransformedPoints();
-    let circle = new __WEBPACK_IMPORTED_MODULE_0__lib_Circle__["a" /* Circle */](bullet.getX(), bullet.getY(), bullet.getRadius());
-    let firstPolygon = new __WEBPACK_IMPORTED_MODULE_1__lib_Polygon__["a" /* Polygon */]();
-    let secondPolygon = new __WEBPACK_IMPORTED_MODULE_1__lib_Polygon__["a" /* Polygon */]();
-
-    firstPolygon.addPoint(points[0].x, points[0].y);
-    firstPolygon.addPoint(points[1].x, points[1].y);
-    firstPolygon.addPoint(points[2].x, points[2].y);
-
-    secondPolygon.addPoint(points[0].x, points[0].y);
-    secondPolygon.addPoint(points[2].x, points[2].y);
-    secondPolygon.addPoint(points[3].x, points[3].y);
-
-    if(circle.collidesWith(firstPolygon) || circle.collidesWith(secondPolygon)) return true;
-
-    return false;
-
-  }
-}
-/* harmony export (immutable) */ exports["a"] = CollisionMediator;
-
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Node__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Node__ = __webpack_require__(16);
 /* jshint esversion: 6 */
 
 
@@ -1206,7 +1030,7 @@ class LinkedList {
 
 
 /***/ },
-/* 18 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1293,7 +1117,7 @@ class NextAnimationFrameFactory {
 
 
 /***/ },
-/* 19 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1308,7 +1132,7 @@ class Node {
 
 
 /***/ },
-/* 20 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1389,7 +1213,7 @@ class Sound {
 
 
 /***/ },
-/* 21 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1416,11 +1240,11 @@ class Star {
 
 
 /***/ },
-/* 22 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Star__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Star__ = __webpack_require__(18);
 /* jshint esversion: 6 */
 
 
@@ -1449,11 +1273,11 @@ class Stars {
 
 
 /***/ },
-/* 23 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Thing__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Thing__ = __webpack_require__(2);
 /* jshint esversion: 6 */
 
 
@@ -1678,7 +1502,7 @@ class Tank extends __WEBPACK_IMPORTED_MODULE_0__Thing__["a" /* Thing */] {
 
 
 /***/ },
-/* 24 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1706,6 +1530,182 @@ function attachEventHandlers(score, newGame) {
   });
   
 }
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Point__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Vector__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Shape__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Projection__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__ = __webpack_require__(5);
+/* jshint esversion: 6 */
+
+
+
+
+
+
+
+class Circle extends __WEBPACK_IMPORTED_MODULE_2__Shape__["a" /* Shape */] {
+  constructor(x, y, radius) {
+     super();
+     this.x = x;
+     this.y = y;
+     this.radius = radius;
+  }
+
+  collidesWith(shape) {
+     var point, length, min=10000, v1, v2,
+         edge, perpendicular, normal,
+         axes = shape.getAxes(), distance;
+
+     if (axes === undefined) {  // circle
+        distance = Math.sqrt(Math.pow(shape.x - this.x, 2) +
+                             Math.pow(shape.y - this.y, 2));
+
+        return distance < Math.abs(this.radius + shape.radius);
+     }
+     else {  // polygon
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__["a" /* polygonCollidesWithCircle */])(shape, this);
+     }
+  }
+
+  getAxes() {
+     return undefined; // there are an infinite number of axes for circles
+  }
+
+  project(axis) {
+     var scalars = [],
+         point = new __WEBPACK_IMPORTED_MODULE_0__Point__["a" /* Point */](this.x, this.y),
+         dotProduct = new __WEBPACK_IMPORTED_MODULE_1__Vector__["a" /* Vector */](point).dotProduct(axis);
+
+     scalars.push(dotProduct);
+     scalars.push(dotProduct + this.radius);
+     scalars.push(dotProduct - this.radius);
+
+     return new __WEBPACK_IMPORTED_MODULE_3__Projection__["a" /* Projection */](Math.min.apply(Math, scalars),
+                           Math.max.apply(Math, scalars));
+  }
+}
+/* harmony export (immutable) */ exports["a"] = Circle;
+
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Circle__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Polygon__ = __webpack_require__(24);
+/* jshint esversion: 6 */
+
+
+
+
+class CollisionMediator {
+  constructor() {
+
+  }
+
+  bulletCollidesWithTank(bullet, tank) {
+
+    let points = tank.getRotatedAndTransformedPoints();
+    let circle = new __WEBPACK_IMPORTED_MODULE_0__Circle__["a" /* Circle */](bullet.getX(), bullet.getY(), bullet.getRadius());
+    let firstPolygon = new __WEBPACK_IMPORTED_MODULE_1__Polygon__["a" /* Polygon */]();
+    let secondPolygon = new __WEBPACK_IMPORTED_MODULE_1__Polygon__["a" /* Polygon */]();
+
+    firstPolygon.addPoint(points[0].x, points[0].y);
+    firstPolygon.addPoint(points[1].x, points[1].y);
+    firstPolygon.addPoint(points[2].x, points[2].y);
+
+    secondPolygon.addPoint(points[0].x, points[0].y);
+    secondPolygon.addPoint(points[2].x, points[2].y);
+    secondPolygon.addPoint(points[3].x, points[3].y);
+
+    if(circle.collidesWith(firstPolygon) || circle.collidesWith(secondPolygon)) return true;
+
+    return false;
+
+  }
+}
+/* harmony export (immutable) */ exports["a"] = CollisionMediator;
+
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Point__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Projection__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Shape__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Vector__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__ = __webpack_require__(5);
+/* jshint esversion: 6 */
+
+
+
+
+
+
+
+class Polygon extends __WEBPACK_IMPORTED_MODULE_2__Shape__["a" /* Shape */] {
+  constructor() {
+    super();
+    this.points = [];
+  }
+
+  collidesWith(shape) {
+     var axes = shape.getAxes();
+
+     if (axes === undefined) {
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__collision_helper_functions__["a" /* polygonCollidesWithCircle */])(this, shape);
+     }
+     else {
+        axes.concat(this.getAxes());
+        return !this.separationOnAxes(axes, shape);
+     }
+  }
+
+  getAxes() {
+     var v1, v2, edge, perpendicular, normal, axes = [];
+
+     for (var i=0; i < this.points.length-1; i++) {
+        v1 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[i]);
+        v2 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[i+1]);
+        axes.push(v1.edge(v2).normal());
+     }
+
+     v1 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[this.points.length-1]);
+     v2 = new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](this.points[0]);
+     axes.push(v1.edge(v2).normal());
+
+     return axes;
+  }
+
+  project(axis) {
+     var scalars = [];
+
+     this.points.forEach( function (point) {
+        scalars.push(new __WEBPACK_IMPORTED_MODULE_3__Vector__["a" /* Vector */](point).dotProduct(axis));
+     });
+
+     return new __WEBPACK_IMPORTED_MODULE_1__Projection__["a" /* Projection */](Math.min.apply(Math, scalars),
+                           Math.max.apply(Math, scalars));
+  }
+
+  addPoint(x, y) {
+     this.points.push(new __WEBPACK_IMPORTED_MODULE_0__Point__["a" /* Point */](x,y));
+  }
+}
+/* harmony export (immutable) */ exports["a"] = Polygon;
+
 
 
 /***/ },

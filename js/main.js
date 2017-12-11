@@ -4,7 +4,7 @@ import { NextAnimationFrameFactory } from './NextAnimationFrame';
 import { LinkedList } from './LinkedList';
 import { Tank } from './Tank';
 import { Bullet } from './Bullet';
-import { KeyboardInput } from '../../lib/KeyboardInput';
+import { KeyboardInput } from './KeyboardInput';
 import { Stars } from './Stars';
 import { Sound } from './Sound';
 import { CONTROL_CONFIG } from './CONTROL_CONFIG';

@@ -1,7 +1,7 @@
 /* jshint esversion: 6 */
 
-import { Circle } from '../../lib/Circle';
-import { Polygon } from '../../lib/Polygon';
+import { Circle } from './Circle';
+import { Polygon } from './Polygon';
 
 export class CollisionMediator {
   constructor() {

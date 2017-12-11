@@ -1,7 +1,7 @@
 /* jshint esversion: 6 */
 
 import { Thing } from './Thing';
-import { CollisionMediator } from './CollisionMediator';
+import { CollisionMediator } from './collision/CollisionMediator';
 
 const MAX_AGE = 500;
 const PIXELS_PER_THOUSAND_MILISECONDS = 500 / 1000;
